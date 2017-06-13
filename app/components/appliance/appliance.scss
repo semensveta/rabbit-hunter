@@ -1,0 +1,24 @@
+  .appliance {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 50%;
+    background-color: white;
+    ul {
+      width: 100%;
+      margin: 0;
+      padding: 0;
+
+      li {
+        display: inline-block;
+        padding: 10px;
+        width: 100%;
+        background-color: silver;
+        color: white;
+        cursor: pointer;
+      }
+      li:hover {
+        background-color: darkgrey;
+      }
+    }
+  }
+

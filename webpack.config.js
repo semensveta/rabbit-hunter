@@ -40,7 +40,7 @@ const cssProd = ExtractTextPlugin.extract({
 
 let cssConfig = isProd ? cssProd : cssDev;
 module.exports = {
-    entry: './app/index.js',
+    entry: './app/dashboard.jsx',
     // devtool: 'inline-source-map',
     output: {
         filename: 'index_bundle.js',
@@ -50,6 +50,10 @@ module.exports = {
         rules: [
             {
                 test: /\.js$/,
+                use: 'babel-loader'
+            },
+            {
+                test: /\.jsx$/,
                 use: 'babel-loader'
             },
             {

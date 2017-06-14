@@ -1,21 +1,24 @@
-/**
- * Created by svetlana on 13.06.17.
- */
 import React from 'react'
 import Layout from "../layout/layout.jsx";
+import PropTypes from 'prop-types';
 
 export default class App extends React.Component {
+  static propTypes = {
+    store: PropTypes.object.isRequired
+  }
 
-    constructor () {
-        super();
-    }
+  constructor () {
+    super();
+  }
 
-    render () {
-        return (
-            <div>
-                APPP!!
-               <Layout/>
-            </div>
-        );
-    }
+  render () {
+    console.log(this);
+
+    return (
+      <div>
+        APPP!!
+       <Layout/>
+      </div>
+    );
+  }
 }

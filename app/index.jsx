@@ -8,10 +8,9 @@ import { list } from './redusers/myReduser';
 import App from './components/App/App.jsx';
 
 let store = createStore(list, [1,2,3,4,5]);
-
 render (
     <Provider store={store}>
-        <App />
+        <App store={store}/>
     </Provider>,
   document.getElementById('mount')
 )

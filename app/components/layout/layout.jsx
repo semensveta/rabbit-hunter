@@ -5,10 +5,13 @@ import Dashboard from '../dashboard/dashboard.jsx';
 import Header from '../header/index.jsx';
 import Navigation from '../nav/nav.jsx';
 import TestComponent from '../test/index.jsx';
+import { connect } from 'react-redux';
 // import Plan from '../plan/dashboard.jsx';
-// import TestComponent from '../test/dashboard.jsx';
 
-export default class Layout extends React.Component {
+ class Layout extends React.Component {
+   constructor(props) {
+     super(props)
+ }
     render () {
         return (
             <div>
@@ -16,9 +19,17 @@ export default class Layout extends React.Component {
                 <Header/>
                 <Navigation/>
                 <Dashboard>
-                  <TestComponent/>
+                  <TestComponent />
                 </Dashboard>
             </div>
         );
     }
 }
+
+function mapStateToProps (state) {
+  return {
+    list: state.list
+  }
+}
+
+export default connect(mapStateToProps)(Layout)

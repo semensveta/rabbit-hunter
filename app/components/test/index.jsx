@@ -1,23 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import './test.scss';
-import {
-    ADD_ITEM
-} from 'constants/list';
+import { createStore } from 'redux';
+import { list } from '../../redusers/myReduser.js';
+
+let store = createStore(list, [1,2,3,4,5]);
+console.log(store);
 
 export default class TestComponent extends React.Component {
 
-    constructor () {
-      super();
+    constructor (props) {
+      super(props);
 
       this.state = {
         numbers: store.getState()
       };
 
-      this.eventHandler = this.eventHandler.bind(this);
+     this.eventHandler = this.eventHandler.bind(this);
     }
 
-    numberList () {
+    numberList() {
       const numbers = this.state.numbers;
       const listItems = numbers.map((number) =>
           <li>{number}</li>
@@ -28,11 +29,12 @@ export default class TestComponent extends React.Component {
     }
 
     eventHandler () {
+      this.props.actions.addItem;
       console.log(this);
-      this.setState((prevState) =>
+      /*this.setState((prevState) =>
       prevState.numbers.push(
           prevState.numbers[prevState.numbers.length - 1] + 1));
-      console.log('HI,event!');
+      console.log('HI,event!');*/
     };
 
   render () {

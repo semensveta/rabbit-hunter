@@ -4,13 +4,13 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import { list } from './redusers/myReduser';
-import App from './components/App/App.jsx';
+import { rabbitLocation } from './redusers/rabitLocation.reduser';
+import Forest from './components/forest/forest.jsx';
 
-let store = createStore(list, [1,2,3,4,5]);
+let store = createStore(rabbitLocation, {x: 0, y: 0});
 render (
     <Provider store={store}>
-        <App store={store}/>
+        <Forest store={store}/>
     </Provider>,
   document.getElementById('mount')
 )

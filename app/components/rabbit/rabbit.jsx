@@ -22,27 +22,19 @@ export default class Rabbit extends React.Component {
   }
 
   run () {
-    const x = Math.floor(Math.random() * 200);
-    const y = Math.floor(Math.random() * 200);
+    this.props.store.dispatch(runRabbit());
+    let newLocation = this.props.store.getState();
     this.styles = {
-      top: x + 'px',
-      left: y + 'px'
+      top: newLocation.x + 'px',
+      left: newLocation.y + 'px'
     };
-    const location = {
-      x,
-      y
-    };
-    this.setState({
-      location
-    });
-
-    this.props.store.dispatch(runRabbit(location));
+    this.forceUpdate();
   }
 
   render () {
      return (
-        <div style = {this.styles} >
-          <img src={rabbitImg} />
+        <div className="rabbit" style = {this.styles} >
+          <img onClick={this.run.bind(this)} src={rabbitImg} />
           <button onClick={this.run.bind(this)}>Run</button>
         </div>
     );

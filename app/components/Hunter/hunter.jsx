@@ -26,8 +26,7 @@ export default class Hunter extends React.Component {
     this.stopHunting();
   }
 
-  stopHunting () {
-    this.props.store.subscribe(() => {});
+  stopHunting () {    
   }
 
 

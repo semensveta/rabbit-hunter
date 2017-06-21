@@ -13,7 +13,7 @@ export default class Rabbit extends React.Component {
     super(props);
 
     this.state =  {
-      location: props.store.getState()
+      location: props.store.getState().rabbitLocation
     };
     this.styles = {
       top: this.state.location.x + 'px',
@@ -23,7 +23,7 @@ export default class Rabbit extends React.Component {
 
   run () {
     this.props.store.dispatch(runRabbit());
-    let newLocation = this.props.store.getState();
+    let newLocation = this.props.store.getState().rabbitLocation;
     this.styles = {
       top: newLocation.x + 'px',
       left: newLocation.y + 'px'

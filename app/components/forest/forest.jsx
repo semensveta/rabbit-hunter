@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Rabbit from '../rabbit/rabbit.jsx';
 import Hunter from '../Hunter/hunter.jsx';
+import { addHunter } from '../../actions/rabbitActions';
 import HunterForm from '../forms/hunter-form.jsx';
 
 
@@ -15,8 +16,15 @@ export default class Forest extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      hunters: [{name: 'John', age: '23', miss: '3'}]
-    }
+      hunters: props.store.getState().hunters
+    };
+
+  }
+  componentWillMount() {
+    this.props.store.subscribe(() => {
+      this.state.hunters = this.props.store.getState().hunters;
+      this.forceUpdate();
+    })
   }
 
   getHunters () {
@@ -32,8 +40,7 @@ export default class Forest extends React.Component {
   }
 
   addHunter(hunter) {
-    this.state.hunters.push(hunter);
-    this.forceUpdate();
+    this.props.store.dispatch(addHunter(hunter));
   }
 
   render () {

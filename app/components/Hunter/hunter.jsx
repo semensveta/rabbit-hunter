@@ -32,8 +32,7 @@ export default class Hunter extends React.Component {
 
   startHunting () {
     this.props.store.subscribe(() => {
-      console.log(this.props.store.getState());
-      let rabbitLocation = this.props.store.getState();
+      let rabbitLocation = this.props.store.getState().rabbitLocation;
       this.styles = {
         top: rabbitLocation.x + 10*this.props.miss +'px',
         left: rabbitLocation.y + 10*this.props.miss + 'px'
@@ -45,8 +44,7 @@ export default class Hunter extends React.Component {
   }
 
   render () {
-    console.log(this.styles);
-     return (
+    return (
         <div className="hunter" style = {this.styles}>
            <img src={aim} />
         </div>

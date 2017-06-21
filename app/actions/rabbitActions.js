@@ -4,3 +4,10 @@ export const runRabbit = (location) => {
       location
     }
 };
+
+export const addHunter = (hunter) => {
+  return {
+    type: 'ADD',
+    hunter
+  }
+}

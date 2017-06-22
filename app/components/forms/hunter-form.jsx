@@ -8,6 +8,7 @@ export default class HunterForm extends React.Component {
    };
   constructor (props) {
     super(props);
+    console.log(props);
     let name = props.name || '';
     let nameIsValid = HunterForm.validateName(name);
     let age = props.age;

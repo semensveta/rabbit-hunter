@@ -5,9 +5,10 @@ import aim from "../../images/hunt.png"
 
 export default class Hunter extends React.Component {
   static propTypes = {
-    store: PropTypes.object.isRequired,
+    // store: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
     age: PropTypes.string.isRequired,
+    rabbitLocation: PropTypes.any.isRequired,
     miss: PropTypes.string.isRequired
   }
 
@@ -31,16 +32,20 @@ export default class Hunter extends React.Component {
 
 
   startHunting () {
-    this.props.store.subscribe(() => {
-      let rabbitLocation = this.props.store.getState().rabbitLocation;
       this.styles = {
-        top: rabbitLocation.x + 10*this.props.miss +'px',
-        left: rabbitLocation.y + 10*this.props.miss + 'px'
+        top: this.props.rabbitLocation.x + 10*this.props.miss +'px',
+        left: this.props.rabbitLocation.y + 10*this.props.miss + 'px'
       }
-
-      setTimeout(() => {this.forceUpdate()}, 500);
-
-    });
+    // this.props.store.subscribe(() => {
+      // let rabbitLocation = this.props.store.getState().rabbitLocation;
+    //   this.styles = {
+    //     top: rabbitLocation.x + 10*this.props.miss +'px',
+    //     left: rabbitLocation.y + 10*this.props.miss + 'px'
+    //   }
+    //
+    //   setTimeout(() => {this.forceUpdate()}, 500);
+    //
+    // });
   }
 
   render () {

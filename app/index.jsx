@@ -13,10 +13,11 @@ const commonReducer = combineReducers({
   rabbitLocation: rabbitLocation,
   hunters: hunters
 });
+
 let store = createStore(commonReducer);
 render (
     <Provider store={store}>
-        <Forest store={store}/>
+        <Forest />
     </Provider>,
   document.getElementById('mount')
 )

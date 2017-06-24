@@ -2,41 +2,50 @@ import "./rabbit.scss"
 import React from 'react';
 import PropTypes from 'prop-types';
 import { runRabbit } from '../../actions/rabbitActions';
-import rabbitImg from "../../images/rabbit.png"
+import rabbitImg from "../../images/rabbit.png";
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 export default class Rabbit extends React.Component {
   static propTypes = {
-    store: PropTypes.object.isRequired
-  }
-
+    onMove: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired
+  };
   constructor (props) {
     super(props);
 
-    this.state =  {
-      location: props.store.getState().rabbitLocation
-    };
     this.styles = {
-      top: this.state.location.x + 'px',
-      left: this.state.location.y + 'px'
+      top: this.props.location.x + 'px',
+      left: this.props.location.y + 'px'
     };
   }
 
-  run () {
-    this.props.store.dispatch(runRabbit());
-    let newLocation = this.props.store.getState().rabbitLocation;
+  componentWillReceiveProps(newProps){
+    this.props = newProps;
     this.styles = {
-      top: newLocation.x + 'px',
-      left: newLocation.y + 'px'
+      top: this.props.location.x + 'px',
+      left: this.props.location.y + 'px'
     };
-    this.forceUpdate();
+
   }
 
   render () {
      return (
         <div className="rabbit" style = {this.styles} >
-          <img onClick={this.run.bind(this)} src={rabbitImg} />
-          <button onClick={this.run.bind(this)}>Run</button>
+          <img onClick={this.props.onMove} src={rabbitImg} />
+          <button onClick={this.props.onMove}>Run</button>
         </div>
     );
   }
 }
+/*function mapStateToProps(store) {
+  return {
+    location: store.rabbitLocation
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    runRabbit: bindActionCreators(runRabbit, dispatch)
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Rabbit)*/

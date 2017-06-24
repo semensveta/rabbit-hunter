@@ -1,11 +1,12 @@
 import "./hunter-form.scss"
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { addHunter } from '../../actions/rabbitActions';
+import { connect } from 'react-redux';
 
-export default class HunterForm extends React.Component {
-   static propTypes = {
-     onAdd: PropTypes.func.isRequired
-   };
+class HunterForm extends React.Component {
+
   constructor (props) {
     super(props);
     console.log(props);
@@ -54,9 +55,13 @@ export default class HunterForm extends React.Component {
       let hunter = {
         name: this.state.name,
         age: this.state.age,
-        miss: this.state.miss
+        miss: this.state.miss,
+        location: {
+          x: 5,
+          y: 5
+        }
       };
-      this.props.onAdd(hunter);
+      this.props.addHunterAction(hunter);
       this.resetForm();
     }
   }
@@ -100,3 +105,14 @@ export default class HunterForm extends React.Component {
     );
   }
 }
+function mapStateToProps(store) {
+  return {
+    hunters: store.hunters
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    addHunterAction: bindActionCreators(addHunter, dispatch)
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(HunterForm)

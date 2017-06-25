@@ -19,7 +19,7 @@ export function hunters (state = [{name: 'John', age: '23', miss: '3', location:
     }
 }
 
-export function hunting (state={x:1,y:1},action) {
+/*export function hunting (state={x:1,y:1},action) {
   switch (action.type) {
     case 'HUNT':
       const hunterLocation = {
@@ -32,4 +32,4 @@ export function hunting (state={x:1,y:1},action) {
     default:
       return state
   }
-}
+}*/

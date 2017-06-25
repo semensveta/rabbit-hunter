@@ -1,6 +1,5 @@
 import "./hunter-form.scss"
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { addHunter } from '../../actions/rabbitActions';
 import { connect } from 'react-redux';
@@ -24,7 +23,7 @@ class HunterForm extends React.Component {
   }
 
   static validateAge(age) {
-    return 0 < age && 100 > age && ((age % 1) == 0);
+    return 0 < age && 100 > age;
   }
 
   static validateName(name) {
@@ -95,7 +94,7 @@ class HunterForm extends React.Component {
         </p>
         <p>
           <label>Мажет на:</label><br />
-          <input type="text" pattern="[0-9]" value={this.state.miss}
+          <input type="text" pattern="[0-9)" value={this.state.miss}
                  onChange={this.onMissChange} />
            м
         </p>

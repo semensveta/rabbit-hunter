@@ -1,10 +1,7 @@
 import "./rabbit.scss"
 import React from 'react';
 import PropTypes from 'prop-types';
-import { runRabbit } from '../../actions/rabbitActions';
 import rabbitImg from "../../images/rabbit.png";
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
 export default class Rabbit extends React.Component {
   static propTypes = {
@@ -26,7 +23,6 @@ export default class Rabbit extends React.Component {
       top: this.props.location.x + 'px',
       left: this.props.location.y + 'px'
     };
-
   }
 
   render () {
@@ -38,14 +34,3 @@ export default class Rabbit extends React.Component {
     );
   }
 }
-/*function mapStateToProps(store) {
-  return {
-    location: store.rabbitLocation
-  }
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    runRabbit: bindActionCreators(runRabbit, dispatch)
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Rabbit)*/

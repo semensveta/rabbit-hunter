@@ -6,20 +6,18 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
 import { rabbitLocation } from './redusers/rabitLocation.reduser';
-import { hunters, hunting } from './redusers/hunters.reduser';
+import { hunters } from './redusers/hunters.reduser';
 import Forest from './components/forest/forest.jsx';
 import HunterForm from './components/forms/hunter-form.jsx';
 import Nav from './components/Nav/nav.jsx';
 import {
   BrowserRouter as Router,
   Route,
-  Link
 } from 'react-router-dom';
 
 const commonReducer = combineReducers({
   rabbitLocation: rabbitLocation,
-  hunters: hunters,
-  hunting: hunting
+  hunters: hunters
 });
 
 let store = createStore(commonReducer);

@@ -1,24 +1,15 @@
 import './forest.scss';
 import React from 'react';
-import PropTypes from 'prop-types';
 import Rabbit from '../rabbit/rabbit.jsx';
 import Hunter from '../Hunter/hunter.jsx';
 import { runRabbit } from '../../actions/rabbitActions';
-
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-
 
 
 class Forest extends React.Component {
   constructor (props) {
     super(props);
-
-  }
-
-  componentWillReceiveProps(newProps) {
-
   }
 
   getHunters () {
@@ -32,7 +23,6 @@ class Forest extends React.Component {
     );
   }
 
-
   render () {
     return (
        <div className="forest">
@@ -40,11 +30,11 @@ class Forest extends React.Component {
           {this.getHunters()}
           <Rabbit onMove={this.props.runRabbit} location={this.props.rabbitLocation}/>
         </div>
-
       </div>
     );
   }
 }
+
 function mapStateToProps(store) {
   return {
     hunters: store.hunters,

@@ -1,10 +1,6 @@
 import "./hunter.scss"
 import React from 'react';
-import PropTypes from 'prop-types';
-import aim from "../../images/hunt.png"
-import { hunt} from '../../actions/rabbitActions';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import aim from "../../images/hunt.png";
 
 export default class Hunter extends React.Component {
   constructor (props) {
@@ -16,10 +12,16 @@ export default class Hunter extends React.Component {
   }
 
   componentWillReceiveProps(newProps){
-    this.styles = {
-        top: newProps.rabbitLocation.x + this.props.miss *10 +'px',
-        left: newProps.rabbitLocation.y + this.props.miss *10 +'px'
-      };
+
+    setTimeout(() => {
+      this.styles = {
+      top: newProps.rabbitLocation.x + this.props.miss *10 +'px',
+      left: newProps.rabbitLocation.y + this.props.miss *10 +'px'
+    }
+    this.forceUpdate();
+    },500)
+
+
   }
 
   render () {
@@ -30,14 +32,4 @@ export default class Hunter extends React.Component {
     );
   }
 }
-/*function mapStateToProps(store) {
-  return {
-    rabbitLocation: store.rabbitLocation
-  }
-}
-function mapDispatchToProps(dispatch) {
-  return {
-    hunt: bindActionCreators(hunt, dispatch)
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Hunter)*/
+

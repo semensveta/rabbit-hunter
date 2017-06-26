@@ -9,8 +9,8 @@ export default class Hunter extends React.Component {
   constructor (props) {
     super(props);
     this.styles = {
-      top: this.props.rabbitLocation.x + 'px',
-      left: this.props.rabbitLocation.y + 'px'
+      top: this.props.location.x + 'px',
+      left: this.props.location.y + 'px'
     }
   }
 
@@ -18,9 +18,9 @@ export default class Hunter extends React.Component {
 
     setTimeout(() => {
       this.styles = {
-      top: newProps.rabbitLocation.x + this.props.miss *10 +'px',
-      left: newProps.rabbitLocation.y + this.props.miss *10 +'px'
-    }
+      top: newProps.location.x + 'px',
+      left: newProps.location.y + 'px'
+    };
     this.forceUpdate();
     },500)
 

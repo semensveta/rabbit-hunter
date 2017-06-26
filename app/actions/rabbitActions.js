@@ -11,10 +11,9 @@ export const addHunter = (hunter) => {
   }
 };
 
-export const hunt = (rabbitLocation, miss) => {
+export const hunt = (rabbitLocation) => {
   return {
     type: 'HUNT',
-    rabbitLocation,
-    miss
+    rabbitLocation
   }
 };

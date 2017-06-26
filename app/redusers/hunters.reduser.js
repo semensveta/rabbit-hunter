@@ -12,9 +12,11 @@ export function hunters (state = [{name: 'John', age: '23', miss: '3', location:
         const hunters = state.map((hunter) => {
           let miss = hunter.miss;
           hunter.location = {
-            x: action.rabbitLocation.x + 10,
-            y: action.rabbitLocation.y + 10
+            x: action.rabbitLocation.x + 10 * hunter.miss,
+            y: action.rabbitLocation.y + 10 * hunter.miss
           };
+
+          return hunter;
         });
 
         return [...hunters];
@@ -22,18 +24,3 @@ export function hunters (state = [{name: 'John', age: '23', miss: '3', location:
         return state
     }
 }
-
-/*export function hunting (state={x:1,y:1},action) {
-  switch (action.type) {
-    case 'HUNT':
-      const hunterLocation = {
-        x: action.rabbitLocation.x + 10 * action.miss,
-        y: action.rabbitLocation.x + 10 * action.miss
-      }
-      console.log(hunterLocation);
-      return Object.assign({},state,hunterLocation);
-
-    default:
-      return state
-  }
-}*/

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import rabbitImg from "../../images/rabbit.png";
 
 export default class Rabbit extends React.Component {
-  static propTypes = {
+  /*static propTypes = {
     onMove: PropTypes.func.isRequired,
     location: PropTypes.object.isRequired
-  };
+  };*/
   constructor (props) {
     super(props);
 

@@ -32,4 +32,4 @@ render (
       </Router>
     </Provider>,
   document.getElementById('mount')
-)
+);

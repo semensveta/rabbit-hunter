@@ -11,8 +11,8 @@ export default class Nav extends React.Component {
     return (
       <nav>
         <ul>
-          <li><NavLink to="/" activeClassName='active' >Home</NavLink></li>
-          <li><NavLink to="/add" activeClassName='active'>Add hunter</NavLink></li>
+          <li><NavLink to="/" >Home</NavLink></li>
+          <li><NavLink to="/add" >Add hunter</NavLink></li>
         </ul>
       </nav>
     );

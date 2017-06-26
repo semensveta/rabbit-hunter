@@ -18,36 +18,36 @@ class HunterForm extends React.Component {
       nameValid: false,
       ageValid: false,
       weapon: ''};
-  }
+  };
 
   static validateAge(age) {
     return 0 < age && 100 > age;
-  }
+  };
 
   static validateName(name) {
     return name.length > 2;
-  }
+  };
 
   onAgeChange = (e) => {
     let val = e.target.value;
     let valid = HunterForm.validateAge(val);
     this.setState({age: val, ageValid: valid});
-  }
+  };
 
   onNameChange = (e) => {
     let val = e.target.value;
     let valid = HunterForm.validateName(val);
     this.setState({name: val, nameValid: valid});
-  }
+  };
 
   onMissChange = (e) => {
     let val = e.target.value;
     this.setState({miss: val})
-  }
+  };
 
   onRadioChange = (e) => {
     this.setState({weapon: e.target.value})
-  }
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
@@ -62,11 +62,10 @@ class HunterForm extends React.Component {
         },
         weapon: this.state.weapon
       };
-      console.log(hunter);
       this.props.addHunterAction(hunter);
       this.resetForm();
     }
-  }
+  };
 
   resetForm() {
     this.setState({
@@ -77,7 +76,7 @@ class HunterForm extends React.Component {
       ageValid: false,
       weapon: ''
     })
-  }
+  };
 
   render() {
     let nameInputClass = this.state.nameValid === true ? "green":"red";
@@ -98,7 +97,7 @@ class HunterForm extends React.Component {
         </div>
         <div>
           <label>Мажет на:</label> <br />
-          <input type="text" pattern="[0-9)" value={this.state.miss}
+          <input type="text"  pattern="[0-9]" value={this.state.miss}
                  onChange={this.onMissChange} />
            <span>м</span>
         </div>

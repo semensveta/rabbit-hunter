@@ -15,7 +15,6 @@ export default class Hunter extends React.Component {
   }
 
   componentWillReceiveProps(newProps){
-
     setTimeout(() => {
       this.styles = {
       top: newProps.location.x + 'px',
@@ -23,8 +22,6 @@ export default class Hunter extends React.Component {
     };
     this.forceUpdate();
     },500)
-
-
   }
 
   render () {

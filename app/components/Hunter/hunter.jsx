@@ -1,6 +1,9 @@
 import "./hunter.scss"
 import React from 'react';
-import aim from "../../images/hunt.png";
+/*import aim from "../../images/hunt.png";
+import aim1 from "../../images/hunt1.png";
+import aim2 from "../../images/hunt2.png";*/
+
 
 export default class Hunter extends React.Component {
   constructor (props) {
@@ -27,7 +30,7 @@ export default class Hunter extends React.Component {
   render () {
     return (
         <div className="hunter" title = {'hunter ' + this.props.name} style = {this.styles}>
-           <img src={aim} />
+           <img src={this.props.weapon} />
         </div>
     );
   }

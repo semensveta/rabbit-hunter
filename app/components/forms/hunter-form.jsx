@@ -3,23 +3,21 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { addHunter } from '../../actions/rabbitActions';
 import { connect } from 'react-redux';
+import aim from "../../images/hunt.png";
+import aim1 from "../../images/hunt1.png";
+import aim2 from "../../images/hunt2.png";
 
 class HunterForm extends React.Component {
 
   constructor (props) {
     super(props);
-    console.log(props);
-    let name = props.name || '';
-    let nameIsValid = HunterForm.validateName(name);
-    let age = props.age;
-    let ageIsValid = HunterForm.validateAge(age);
-    let miss = props.miss;
-    this.state = {name: name, age: age, miss: miss, nameValid: nameIsValid, ageValid: ageIsValid};
-
-    this.onNameChange = this.onNameChange.bind(this);
-    this.onAgeChange = this.onAgeChange.bind(this);
-    this.onMissChange = this.onMissChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      name: '',
+      age: '',
+      miss: '',
+      nameValid: false,
+      ageValid: false,
+      weapon: ''};
   }
 
   static validateAge(age) {
@@ -30,25 +28,28 @@ class HunterForm extends React.Component {
     return name.length > 2;
   }
 
-  onAgeChange(e) {
+  onAgeChange = (e) => {
     let val = e.target.value;
     let valid = HunterForm.validateAge(val);
-    console.log(valid);
     this.setState({age: val, ageValid: valid});
   }
 
-  onNameChange(e) {
+  onNameChange = (e) => {
     let val = e.target.value;
     let valid = HunterForm.validateName(val);
     this.setState({name: val, nameValid: valid});
   }
 
-  onMissChange(e) {
+  onMissChange = (e) => {
     let val = e.target.value;
     this.setState({miss: val})
   }
 
-  handleSubmit(e) {
+  onRadioChange = (e) => {
+    this.setState({weapon: e.target.value})
+  }
+
+  handleSubmit = (e) => {
     e.preventDefault();
     if(this.state.nameValid === true && this.state.ageValid === true){
       let hunter = {
@@ -58,8 +59,10 @@ class HunterForm extends React.Component {
         location: {
           x: 5,
           y: 5
-        }
+        },
+        weapon: this.state.weapon
       };
+      console.log(hunter);
       this.props.addHunterAction(hunter);
       this.resetForm();
     }
@@ -67,12 +70,13 @@ class HunterForm extends React.Component {
 
   resetForm() {
     this.setState({
-        name: '',
-        age: '',
-        miss: '',
-        nameValid: false,
-        ageValid: false
-      })
+      name: '',
+      age: '',
+      miss: '',
+      nameValid: false,
+      ageValid: false,
+      weapon: ''
+    })
   }
 
   render() {
@@ -82,23 +86,34 @@ class HunterForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <h3>Добавить охотника</h3>
-        <p>
-          <label>Имя:</label><br />
-          <input className={nameInputClass} type="text" value={this.state.name}
-                 onChange={this.onNameChange} />
-        </p>
-        <p>
-          <label>Возраст:</label><br />
+        <div>
+        <label>Имя:</label> <br />
+        <input className={nameInputClass} type="text" value={this.state.name}
+               onChange={this.onNameChange} />
+        </div>
+        <div>
+          <label>Возраст:</label> <br />
           <input type="text" pattern="[0-9]{1,2}" value={this.state.age}
                  onChange={this.onAgeChange} className={ageInputClass} />
-        </p>
-        <p>
-          <label>Мажет на:</label><br />
+        </div>
+        <div>
+          <label>Мажет на:</label> <br />
           <input type="text" pattern="[0-9)" value={this.state.miss}
                  onChange={this.onMissChange} />
-           м
-        </p>
-
+           <span>м</span>
+        </div>
+        <div>
+          <p><labe>Оружие:</labe></p>
+            <img className="radio-image" src={aim} />
+            <input type="radio" name="weapon" value={aim}
+                   onChange={this.onRadioChange} /> < br />
+            <img className="radio-image" src={aim1} />
+            <input type="radio" name="weapon"  value={aim1}
+                   onChange={this.onRadioChange} /> < br />
+            <img className="radio-image" src={aim2} />
+            <input type="radio" name="weapon" value={aim2}
+                   onChange={this.onRadioChange} /> < br />
+        </div>
         <input type="submit" value="Добавить" />
       </form>
     );

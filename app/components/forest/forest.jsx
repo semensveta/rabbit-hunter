@@ -19,7 +19,8 @@ class Forest extends React.Component {
         name = {hunter.name}
         age = {hunter.age}
         rabbitLocation = {this.props.rabbitLocation}
-        miss = {hunter.miss}/>
+        miss = {hunter.miss}
+        weapon = {hunter.weapon}/>
     );
   }
 

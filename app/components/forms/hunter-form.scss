@@ -1,9 +1,25 @@
 form {
+  margin: 0 auto;
+  width: 200px;
+  padding: 10px;
+  border: 1px solid grey;
+
+  div {
+    padding: 10px 0;
+  }
+  .errors {
+    font-size: 14px;
+    color: red;
+  }
   .green {
     border-color: green;
   }
   .red {
     border-color: red;
+  }
+  .radio-image {
+    height: 30px;
+    width: 30px;
   }
 }
 

@@ -5,10 +5,8 @@ export function rabbitLocation (state = {x: 0, y: 0}, action) {
               x: Math.floor(Math.random() * 100),
               y: Math.floor(Math.random() * 100)
             };
-            state = newLocation;
-            console.log(state);
+            return Object.assign({},state,newLocation);
 
-            return state;
         default:
             return state
     }

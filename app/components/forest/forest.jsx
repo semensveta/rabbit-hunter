@@ -1,57 +1,57 @@
 import './forest.scss';
 import React from 'react';
-import PropTypes from 'prop-types';
 import Rabbit from '../rabbit/rabbit.jsx';
 import Hunter from '../Hunter/hunter.jsx';
-import { addHunter } from '../../actions/rabbitActions';
-import HunterForm from '../forms/hunter-form.jsx';
+import { runRabbit, hunt } from '../../actions/rabbitActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 
-
-export default class Forest extends React.Component {
-  static propTypes = {
-    store: PropTypes.object.isRequired
-  };
-
+class Forest extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      hunters: props.store.getState().hunters
-    };
-
   }
-  componentWillMount() {
-    this.props.store.subscribe(() => {
-      this.state.hunters = this.props.store.getState().hunters;
-      this.forceUpdate();
-    })
+
+  componentWillReceiveProps(newProps){
+    if (newProps.rabbitLocation !== this.props.rabbitLocation) {
+      this.props.hunt(newProps.rabbitLocation);
+    }
   }
 
   getHunters () {
-    const hunters = this.state.hunters;
-    const huntersList = hunters.map((hunter) =>
+    return this.props.hunters.map((hunter, index) =>
       <Hunter
-        store={this.props.store}
+        key = {index}
         name = {hunter.name}
         age = {hunter.age}
-        miss = {hunter.miss}/>
+        location = {hunter.location}
+        miss = {hunter.miss}
+        weapon = {hunter.weapon}/>
     );
-    return huntersList;
-  }
-
-  addHunter(hunter) {
-    this.props.store.dispatch(addHunter(hunter));
   }
 
   render () {
     return (
-      <div className="forest">
+       <div className="forest">
         <div className="glade">
           {this.getHunters()}
-          <Rabbit store={this.props.store}/>
+          <Rabbit onMove={this.props.runRabbit} location={this.props.rabbitLocation}/>
         </div>
-        <HunterForm onAdd={this.addHunter.bind(this)} />
       </div>
     );
   }
 }
+
+function mapStateToProps(store) {
+  return {
+    hunters: store.hunters,
+    rabbitLocation: store.rabbitLocation
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    runRabbit: bindActionCreators(runRabbit, dispatch),
+    hunt: bindActionCreators(hunt, dispatch)
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Forest)

@@ -1,7 +1,6 @@
-export const runRabbit = (location) => {
+export const runRabbit = () => {
     return {
-      type: 'RUN',
-      location
+      type: 'RUN'
     }
 };
 
@@ -10,4 +9,11 @@ export const addHunter = (hunter) => {
     type: 'ADD',
     hunter
   }
-}
+};
+
+export const hunt = (rabbitLocation) => {
+  return {
+    type: 'HUNT',
+    rabbitLocation
+  }
+};

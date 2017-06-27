@@ -17,56 +17,60 @@ class HunterForm extends React.Component {
             miss: '',
             nameValid: false,
             ageValid: false,
-            weapon: ''
+            weapon: '',
+            formErrors: []
         };
     };
 
- handleUserInput = (e) => {
-     const name = e.target.name;
-     console.log(e.target.value);
-      const value = e.target.value;
-      this.setState({[name]: value});
-      this.validateField(name, value);
-  }
+    handleUserInput = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        this.setState({[name]: value});
+        this.validateField(name, value);
+    }
     validateField = (fieldName, value) => {
         let nameValid = this.state.nameValid;
         let ageValid = this.state.ageValid;
+        let fieldValidationErrors = this.state.formErrors;
 
         switch(fieldName) {
             case 'age':
                 ageValid = 0 < value && 100 > value;
+                fieldValidationErrors.age = ageValid ? '' : 'age is invalid!';
                 break;
             case 'name':
                 nameValid = value.length > 2;
+                fieldValidationErrors.name = nameValid ? '' : 'name is to short!';
                 break;
             default:
                 break;
         }
         this.setState({
             nameValid: nameValid,
-            ageValid: ageValid
+            ageValid: ageValid,
+            formErrors: fieldValidationErrors,
         });
     }
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    if(this.state.nameValid === true && this.state.ageValid === true){
-      let hunter = {
-        name: this.state.name,
-        age: this.state.age,
-        miss: this.state.miss,
-        location: {
-          x: 5,
-          y: 5
-        },
-        weapon: this.state.weapon
-      };
-      this.props.addHunterAction(hunter);
-      this.resetForm();
-    }
-  };
+    handleSubmit = (e) => {
+        e.preventDefault();
+        if(this.state.nameValid === true && this.state.ageValid === true){
+          let hunter = {
+            name: this.state.name,
+            age: this.state.age,
+            miss: this.state.miss,
+            location: {
+              x: 5,
+              y: 5
+            },
+            weapon: this.state.weapon
+          };
+          this.props.addHunterAction(hunter);
+          this.resetForm();
+        }
+    };
 
-  resetForm() {
+    resetForm() {
     this.setState({
       name: '',
       age: '',
@@ -75,7 +79,21 @@ class HunterForm extends React.Component {
       ageValid: false,
       weapon: ''
     })
-  };
+    };
+
+ /* getErrors = (formErrors) => {
+      console.log(formErrors);
+      Object.keys(formErrors).map((fieldName, i) => {
+          if(formErrors[fieldName].length > 0){
+              console.log('error!');
+              return (
+                  <p key={i}>{fieldName} {formErrors[fieldName]}</p>
+              )
+          } else {
+              return '';
+          }
+      })
+  };*/
 
 
   render() {
@@ -85,6 +103,10 @@ class HunterForm extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <h3>Добавить охотника</h3>
+        <div className = "errors">
+            <p>{this.state.formErrors.name}</p>
+            <p>{this.state.formErrors.age}</p>
+        </div>
         <div>
         <label>Имя:</label> <br />
         <input className={nameInputClass} name="name" type="text" value={this.state.name}

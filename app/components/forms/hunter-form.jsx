@@ -22,34 +22,42 @@ class HunterForm extends React.Component {
         };
     };
 
+    componentWillMount() {
+      this.nameValid = this.state.nameValid;
+      this.ageValid = this.state.ageValid;
+      this.fieldValidationErrors = this.state.formErrors;
+    };
+
     handleUserInput = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        this.setState({[name]: value});
-        this.validateField(name, value);
-    }
+      const name = e.target.name;
+      const value = e.target.value;
+      this.validateField(name, value);
+      this.setState({
+        [name]: value,
+        nameValid: this.nameValid,
+        ageValid: this.ageValid,
+        formErrors: this.fieldValidationErrors
+      });
+    };
     validateField = (fieldName, value) => {
-        let nameValid = this.state.nameValid;
-        let ageValid = this.state.ageValid;
-        let fieldValidationErrors = this.state.formErrors;
 
         switch(fieldName) {
             case 'age':
-                ageValid = 0 < value && 100 > value;
-                fieldValidationErrors.age = ageValid ? '' : 'age is invalid!';
+              this.ageValid = 0 < value && 100 > value;
+              this.fieldValidationErrors.age = this.ageValid ? '' : 'age is invalid!';
                 break;
             case 'name':
-                nameValid = value.length > 2;
-                fieldValidationErrors.name = nameValid ? '' : 'name is to short!';
+              this.nameValid = value.length > 2;
+              this.fieldValidationErrors.name = this.nameValid ? '' : 'name is to short!';
                 break;
             default:
                 break;
         }
-        this.setState({
+        /*this.setState({
             nameValid: nameValid,
             ageValid: ageValid,
             formErrors: fieldValidationErrors,
-        });
+        });*/
     }
 
     handleSubmit = (e) => {

@@ -1,6 +1,10 @@
 export const runRabbit = () => {
     return {
-      type: 'RUN'
+        type: 'RUN',
+        newLocation: {
+            x: Math.floor(Math.random() * 100),
+            y: Math.floor(Math.random() * 100)
+        }
     }
 };
 

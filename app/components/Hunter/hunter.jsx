@@ -20,15 +20,15 @@ export default class Hunter extends React.Component {
       top: newProps.location.x + 'px',
       left: newProps.location.y + 'px'
     };
-    this.forceUpdate();
+    this.setState();
     },500)
   }
 
   render () {
     return (
-        <div className="hunter" title = {'hunter ' + this.props.name} style = {this.styles}>
-           <img src={this.props.weapon} />
-        </div>
+      <div className="hunter" title = {'hunter ' + this.props.name} style = {this.styles}>
+         <img src={this.props.weapon} />
+      </div>
     );
   }
 }

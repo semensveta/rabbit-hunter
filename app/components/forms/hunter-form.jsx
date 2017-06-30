@@ -1,52 +1,55 @@
 import "./hunter-form.scss"
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { addHunter } from '../../actions/rabbitActions';
+import { addItem, changeName, changeLocation } from '../../actions/deviceProtoActions';
 import { connect } from 'react-redux';
 import Checkbox  from "./checkbox.jsx";
 import addForm from '../forms/add-form.jsx';
 
-const checkboxItems = [
-  'On/off',
+const itemsToChoose = [
+  'Toggle',
   'Timer',
-  'Power consumption',
-  'Status'
+  'Graph',
+  'Value',
+  'Range'
 ];
 
-
-class HunterForm extends React.Component {
+class DeviceForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: ''
+            items: []
         };
     };
-  componentWillMount = () => {
-    this.selectedCheckboxes = new Set();
-  }
 
-  toggleCheckbox = label => {
-    if (this.selectedCheckboxes.has(label)) {
-      this.selectedCheckboxes.delete(label);
-    } else {
-      this.selectedCheckboxes.add(label);
+  addItem = (e) => {
+      const newItem = {
+      id:3,
+      name: e.target.value
     }
+    this.state.items.push(newItem);
+    console.log(this.state.items);
+    this.props.addItem(newItem);
   }
 
-  createCheckbox = label => (
-    <Checkbox
-      label={label}
-      handleCheckboxChange={this.toggleCheckbox}
-      key={label}
-    />
+  createButton = (label,index) => (
+    <p>
+      <input
+        type = "button"
+        key = { index }
+        onClick={this.addItem}
+        value={label}
+        />
+    </p>
   )
 
-  createCheckboxes = () => (
-    checkboxItems.map(this.createCheckbox)
+  createButtons = () => (
+    itemsToChoose.map(this.createButton)
   )
 
 
   handleUserInput = (e) => {
+    console.log('this works!');
       const name = e.target.name;
       const value = e.target.value;
       this.setState({
@@ -82,15 +85,7 @@ class HunterForm extends React.Component {
                onChange={this.handleUserInput} />
         </div>
         <div>
-          <label>Type:</label> <br />
-           <select value={this.state.value} onChange={this.handleUserInput}>
-            <option value="tv">TV</option>
-            <option value="oven">Oven</option>
-            <option value="dishwasher">Dishwasher</option>
-            <option value="washing">Washing machine</option>
-          </select>
-          <br />
-          <label>Location:</label> <br />
+         <label>Location:</label> <br />
           <select value={this.state.value} onChange={this.handleUserInput}>
             <option value="living room">Living room</option>
             <option value="bedroom">Bedroom</option>
@@ -100,23 +95,24 @@ class HunterForm extends React.Component {
         </div>
         <div>
           Appliance config:
-          { this.createCheckboxes() }
+          { this.createButtons() }
         </div>
         <input type="submit" value="Add" />
-        <addForm />
+        <div>{ this.props.deviseProto } </div>
       </form>
-
     );
   }
 }
 function mapStateToProps(store) {
   return {
-    hunters: store.hunters
+    deviceProto: store.deviceProto
   }
 }
 function mapDispatchToProps(dispatch) {
   return {
-    addHunterAction: bindActionCreators(addHunter, dispatch)
+    changeLocation: bindActionCreators(changeLocation, dispatch),
+    addItem:  bindActionCreators(addItem, dispatch),
+    changeName:  bindActionCreators(changeName, dispatch)
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(HunterForm)
+export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm)

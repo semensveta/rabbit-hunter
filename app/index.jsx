@@ -5,31 +5,19 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { combineReducers } from 'redux';
-import { rabbitLocation } from './redusers/rabitLocation.reduser';
+import { deviceProto } from './redusers/device-proto.reduser';
 import { hunters } from './redusers/hunters.reduser';
-import Forest from './components/forest/forest.jsx';
-import HunterForm from './components/forms/hunter-form.jsx';
-import Nav from './components/Nav/nav.jsx';
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom';
+import DeviceForm from './components/forms/hunter-form.jsx';
+
 
 const commonReducer = combineReducers({
-  rabbitLocation: rabbitLocation,
-  hunters: hunters
+  deviseProto: deviceProto
 });
 
 let store = createStore(commonReducer);
 render (
     <Provider store={store}>
-      <Router >
-        <div>
-          <Nav/>
-          <Route exact path="/" component={Forest}/>
-          <Route path="/add"  component={HunterForm}/>
-        </div>
-      </Router>
+      <DeviceForm />
     </Provider>,
   document.getElementById('mount')
 );

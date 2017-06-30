@@ -2,9 +2,11 @@ import './forest.scss';
 import React from 'react';
 import Rabbit from '../rabbit/rabbit.jsx';
 import Hunter from '../Hunter/hunter.jsx';
+import addForm from '../forms/add-form.jsx';
 import { runRabbit, hunt } from '../../actions/rabbitActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 
 
 class Forest extends React.Component {
@@ -32,12 +34,13 @@ class Forest extends React.Component {
 
   render () {
     return (
-       <div className="forest">
+      <addForm />
+       /*<div className="forest">
         <div className="glade">
           {this.getHunters()}
           <Rabbit onMove={this.props.runRabbit} location={this.props.rabbitLocation}/>
         </div>
-      </div>
+      </div>*/
     );
   }
 }

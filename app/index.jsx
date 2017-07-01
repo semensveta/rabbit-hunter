@@ -11,7 +11,7 @@ import DeviceForm from './components/forms/hunter-form.jsx';
 
 
 const commonReducer = combineReducers({
-  deviseProto: deviceProto
+  deviceProto: deviceProto
 });
 
 let store = createStore(commonReducer);

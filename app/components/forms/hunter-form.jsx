@@ -1,10 +1,8 @@
 import "./hunter-form.scss"
 import React from 'react';
 import { bindActionCreators } from 'redux';
-import { addItem, changeName, changeLocation } from '../../actions/deviceProtoActions';
+import { addItem, setValue, resetProto } from '../../actions/deviceProtoActions';
 import { connect } from 'react-redux';
-import Checkbox  from "./checkbox.jsx";
-import addForm from '../forms/add-form.jsx';
 
 const itemsToChoose = [
   'Toggle',
@@ -13,71 +11,75 @@ const itemsToChoose = [
   'Value',
   'Range'
 ];
+let id = 0;
 
 class DeviceForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: []
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      items: []
     };
+  };
+
+  setId = () => {
+    return id++;
+    /*return (function() {
+      return id++;
+    })();*/
+  };
 
   addItem = (e) => {
-      const newItem = {
-      id:3,
+    const newItem = {
+      id: this.setId(),
       name: e.target.value
-    }
-    this.state.items.push(newItem);
-    console.log(this.state.items);
+    };
     this.props.addItem(newItem);
-  }
+  };
 
   createButton = (label,index) => (
     <p>
       <input
         type = "button"
         key = { index }
-        onClick={this.addItem}
+        onClick={ this.addItem }
         value={label}
         />
     </p>
-  )
+  );
 
   createButtons = () => (
     itemsToChoose.map(this.createButton)
-  )
-
+  );
 
   handleUserInput = (e) => {
-    console.log('this works!');
-      const name = e.target.name;
-      const value = e.target.value;
-      this.setState({
-        [name]: value
-      });
-    };
+    const name = e.target.name;
+    const value = e.target.value;
+    this.props.setValue(name,value);
+  };
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let newDevice = JSON.stringify(this.props.deviceProto);
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-      for (const checkbox of this.selectedCheckboxes) {
-        console.log(checkbox, 'is selected.');
-      }
-          this.resetForm();
-    }
+    //add sending newDevice
+    console.log(this.props.deviceProto);
+    this.resetForm();
+    console.log(newDevice);
 
+    console.log(this.props.deviceProto);
+  };
 
-    resetForm() {
-      this.setState({
-        name: ''
-      })
-    };
-
+  resetForm() {
+    this.setState({
+      name: ''
+    });
+    this.props.resetProto();
+  };
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h3>Add new appliance</h3>
+        <h3>Add new device</h3>
 
         <div>
         <label>Name:</label> <br />
@@ -86,7 +88,7 @@ class DeviceForm extends React.Component {
         </div>
         <div>
          <label>Location:</label> <br />
-          <select value={this.state.value} onChange={this.handleUserInput}>
+          <select name="location" value={this.state.value} onChange={this.handleUserInput}>
             <option value="living room">Living room</option>
             <option value="bedroom">Bedroom</option>
             <option value="kitchen">Kitchen</option>
@@ -94,11 +96,11 @@ class DeviceForm extends React.Component {
           </select>
         </div>
         <div>
-          Appliance config:
+          Device config:
           { this.createButtons() }
         </div>
         <input type="submit" value="Add" />
-        <div>{ this.props.deviseProto } </div>
+        <div>{ this.props.deviceProto.name } </div>
       </form>
     );
   }
@@ -110,9 +112,9 @@ function mapStateToProps(store) {
 }
 function mapDispatchToProps(dispatch) {
   return {
-    changeLocation: bindActionCreators(changeLocation, dispatch),
+    setValue: bindActionCreators(setValue, dispatch),
     addItem:  bindActionCreators(addItem, dispatch),
-    changeName:  bindActionCreators(changeName, dispatch)
+    resetProto: bindActionCreators(resetProto, dispatch)
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DeviceForm)

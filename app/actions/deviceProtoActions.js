@@ -1,20 +1,22 @@
 export const addItem = (item) => {
-    return {
-        type: 'ADD',
-        item
-    }
-};
-
-export const changeName = (name) => {
   return {
-    type: 'NAME',
-    name
+      type: 'ADD',
+      item
   }
 };
 
-export const changeLocation = (location) => {
+export const setValue = (name, value) => {
   return {
-    type: 'LOCATION',
-    location
+    type: 'SET',
+    name,
+    value
   }
 };
+
+export const resetProto = () => {
+  console.log('reset!');
+  return {
+    type: 'RESET'
+  }
+};
+
